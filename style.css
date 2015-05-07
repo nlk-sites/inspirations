@@ -1,0 +1,19 @@
+/*
+ Theme Name:   Inspirations
+ Theme URI:    http://inspirations.com
+ Description:  ProGo Base Child Theme
+ Author:       Ninthlink, Inc.
+ Author URI:   http://ninthlink.com
+ Template:     pgb
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Text Domain:  inspirations
+*/
+
+body {
+	background-color: #f9f4dc;
+}
+.container {
+	background-color: #fff;
+}
