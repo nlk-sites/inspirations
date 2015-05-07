@@ -5,6 +5,12 @@
  * @package inspirations
  */
 
+function inpirations_scripts() {
+	wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
+}
+add_action( 'wp_enqueue_scripts', 'inpirations_scripts' );
+
+
 
 /**
  * Register menu areas.
@@ -14,7 +20,7 @@
 function register_inspirations_menus() {
 	register_nav_menus(
 		array(
-			'extra-menu' => __( 'Footer Menu' )
+			'footer-menu' => __( 'Footer Menu' )
 		)
 	);
 }
@@ -85,9 +91,9 @@ add_action( 'tha_header_before', 'inspirations_top_bar' );
 function inspirations_top_bar() {
 	//something...
 	?>
-	<div class="container">
+	<div class="top-header container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12 hidden-xs">
 				<?php if ( is_active_sidebar( 'header_top_left' ) ) : ?>
 					<div class="pull-left"><?php dynamic_sidebar( 'header_top_left' ); ?></div>
 				<?php endif; ?>
@@ -118,15 +124,17 @@ function inspirations_top_bar() {
  */
 function inpirations_add_meta_box() {
 
-	$screens = array( 'post', 'page' );
+	$screens = array( 'page' );
 
 	foreach ( $screens as $screen ) {
 
 		add_meta_box(
 			'inspirations_sectionid',
-			__( 'Inspirations formatting', 'inspirations' ),
+			__( 'Inspirations Format', 'inspirations' ),
 			'inspirations_meta_box_callback',
-			$screen
+			$screen, 
+			'side',
+			'core'
 		);
 	}
 }
@@ -146,12 +154,13 @@ function inspirations_meta_box_callback( $post ) {
 	 * Use get_post_meta() to retrieve an existing value
 	 * from the database and use the value for the form.
 	 */
-	$value = get_post_meta( $post->ID, '_inspirations_meta_value_key', true );
+	$value = get_post_meta( $post->ID, '_inspirations_meta_page_color', true );
 
-	echo '<label for="inspirations_new_field">';
-	_e( 'Description for this field', 'inspirations' );
-	echo '</label> ';
-	echo '<input type="text" id="inspirations_new_field" name="inspirations_new_field" value="' . esc_attr( $value ) . '" size="25" />';
+	echo '<label for="inspirations_page_color">';
+	_e( 'Page Primary Color', 'inspirations' );
+	echo '</label>';
+	
+	echo '<p><input type="text" name="inspirations_page_color" value="' . esc_attr( $value ) . '" class="wp-color-picker-field" data-default-color="" /></p>';
 }
 
 /**
@@ -198,14 +207,24 @@ function inspirations_save_meta_box_data( $post_id ) {
 	/* OK, it's safe for us to save the data now. */
 	
 	// Make sure that it is set.
-	if ( ! isset( $_POST['inspirations_new_field'] ) ) {
+	if ( ! isset( $_POST['inspirations_page_color'] ) ) {
 		return;
 	}
 
 	// Sanitize user input.
-	$my_data = sanitize_text_field( $_POST['inspirations_new_field'] );
+	$my_data = sanitize_text_field( $_POST['inspirations_page_color'] );
 
 	// Update the meta field in the database.
-	update_post_meta( $post_id, '_inspirations_meta_value_key', $my_data );
+	update_post_meta( $post_id, '_inspirations_meta_page_color', $my_data );
 }
 add_action( 'save_post', 'inspirations_save_meta_box_data' );
+
+/**
+ * Get page color
+ *
+ */
+function inspirations_page_color(){
+	global $wp_query;
+	$postid = $wp_query->post->ID;
+	return get_post_meta( $postid, '_inspirations_meta_page_color', true );
+}

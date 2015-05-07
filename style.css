@@ -17,3 +17,111 @@ body {
 .container {
 	background-color: #fff;
 }
+footer .container {
+	background-color: transparent;
+}
+
+nav#main-nav {
+	margin-top: 2px;
+	margin-bottom: 0;
+	min-height: 90px;
+	border: none;
+}
+
+.page-header {
+	padding-bottom: 0px;
+	margin-top: 0;
+	margin-bottom: 0;
+	border-bottom: none;
+}
+
+.sidebar {
+	border-left: 1px solid #e7e7e7;
+}
+
+/* Page Header */
+.top-header {
+	font-family: Arial;
+	color:  #64441a;
+	font-size: 13px;
+	font-weight: 400;
+	letter-spacing: 0.325px;
+	line-height: 24px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 24px;
+	text-align: center;
+}
+
+/* logo */
+.navbar-brand {
+	padding: 0;
+}
+.desktoplogo {
+	padding: 0px;
+	margin-top: 20px;
+	margin-left: 10px;
+}
+@media screen and (max-width: 768px) {
+	nav#main-nav {
+		min-height: 50px;
+	}
+	.desktoplogo {
+		margin-top: 8px;
+	}
+	.navbar-brand img {
+		max-width: 210px;
+	}
+}
+
+/* top menu */
+ul#main-menu {
+	margin-top: 18px;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	background-color: transparent;
+	color:  #806327;
+}
+
+.navbar-default .navbar-nav > li > a {
+	font-family: 'Source Sans Pro', 'Open Sans', helvetica, arial, sans-serif;
+	color:  #806327;
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 24px;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+
+/* Page Colors */
+.page-color.page-header-top { height: 68px; }
+.page-color.page-header-top h1 {
+	color:  #ffffff;
+	font-family: 'SourceSerifPro';
+	font-size: 32px; /* Approximation due to font substitution */
+	font-style: italic;
+	font-weight: 400;
+	line-height: 39px; /* Approximation due to font substitution */
+	margin-top: 14px;
+	margin-left: 18px;
+	text-align: left;
+}
+.page-color.page-header-bottom { height: 12px; }
+
+/* footer */
+.site-footer-inner-top {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+
+footer {
+	font-family: 'Source Sans Pro', 'Open Sans', helvetica, arial, sans-serif;
+	color:  #56360d;
+	font-size: 15px;
+	font-weight: 600;
+	letter-spacing: 0.375px;
+	line-height: 24px;
+}
