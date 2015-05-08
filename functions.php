@@ -243,3 +243,24 @@ function inspirations_page_color(){
 	$postid = $wp_query->post->ID;
 	return get_post_meta( $postid, '_inspirations_meta_page_color', true );
 }
+
+
+
+
+/**
+ * Video Custom Widget
+ *
+ * @since 1.0
+ */
+function show_custom_video_widget() {
+	?>
+
+		<aside id="inspirations-video-custom-widget" class="widget">
+			<a href="https://www.youtube.com/watch?v=DVvBURjTXFo" target="_blank">
+				<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/video_image.png" />
+			</a>
+		</aside>
+
+	<?php
+}
+add_action( 'tha_sidebar_bottom', 'show_custom_video_widget', 10 );

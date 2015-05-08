@@ -83,6 +83,9 @@ ul#main-menu {
 	background-color: transparent;
 	color:  #806327;
 }
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+	background-color: transparent;
+}
 
 .navbar-default .navbar-nav > li > a {
 	font-family: 'Source Sans Pro', 'Open Sans', helvetica, arial, sans-serif;
@@ -137,6 +140,9 @@ article h3 {
 	line-height: 32px;
 	margin-top: 0;
 }
+article hr {
+	border-top-width:; 4px;
+}
 
 /* sidebars */
 .sidebar h3 {
@@ -158,6 +164,12 @@ article h3 {
 }
 .sidebar aside:last-child > div {
 	border-bottom: none;
+}
+
+#inspirations-video-custom-widget img {
+	margin-top: 40px;
+	width: 100%;
+	height: auto;
 }
 
 
