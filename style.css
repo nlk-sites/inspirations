@@ -11,6 +11,9 @@
  Text Domain:  inspirations
 */
 
+@import url(http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600,700);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic);
+
 body {
 	background-color: #f9f4dc;
 }
@@ -55,7 +58,7 @@ nav#main-nav {
 	margin-bottom: 0;
 	border-bottom: none;
 }
-.page-header-content * {
+.page-header-content, .page-header-content * {
 	color: #fff;
 }
 .page-header.with-content .page-header-image, .page-header.with-content .page-header-map {
@@ -141,7 +144,7 @@ ul#main-menu {
 .page-color.page-header-top { height: 68px; }
 .page-color.page-header-top h1 {
 	color:  #ffffff;
-	font-family: 'SourceSerifPro';
+	font-family: 'SourceSerifPro', 'Source Serif Pro';
 	font-size: 32px; /* Approximation due to font substitution */
 	font-style: italic;
 	font-weight: 400;
@@ -173,28 +176,52 @@ article hr {
 .front-page-widget {
 	/*background-size: contain !important;*/
 	background-size: 100% auto !important;
+	border-right: 1px solid #e7e7e7;
 }
+.front-page-widget:last-child {
+	border-right: none;
+}
+
 .front-page-widget .widget_text {
-	padding: 10px 20px 200px;
+	padding: 10px 20px 240px;
 }
 .front-page-widget-image img {
 	bottom: 0;
 	/*position: absolute;*/
 }
+@media screen and (max-width: 1199px) {
+	.front-page-widget .widget_text {
+		padding: 10px 20px 200px;
+	}
+}
+@media screen and (max-width: 991px) {
+	.front-page-widget .widget_text {
+		padding: 10px 20px 130px;
+	}
+}
 @media screen and (max-width: 767px) {
 	.front-page-widget {
 		background: none !important;
+		border-right: none;
 		height: auto !important;
 	}
 	.front-page-widget .widget_text {
 		padding: 10px 20px 20px;
 	}
 }
+.front-page-widget .widget_text h2 {
+	font-family: 'SourceSerifPro', 'Source Serif Pro';
+	font-size: 22px; /* Approximation due to font substitution */
+	font-weight: 400;
+	line-height: 24px; /* Approximation due to font substitution */
+	text-align: left;
+}
+
 
 
 /* sidebars */
 .sidebar h3 {
-	font-family: 'SourceSerifPro', serif;
+	font-family: 'SourceSerifPro', 'Source Serif Pro', serif;
 	color:  #464646;
 	font-size: 24px; /* Approximation due to font substitution */
 	font-weight: 400;
@@ -229,7 +256,7 @@ article hr {
 }
 
 .footerwidgetarea h3 {
-	font-family: 'SourceSerifPro', serif;
+	font-family: 'SourceSerifPro', 'Source Serif Pro', serif;
 	color:  #ffffff;
 	font-size: 20px; /* Approximation due to font substitution */
 	font-weight: 400;

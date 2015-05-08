@@ -177,7 +177,7 @@ function hex2rgb( $colour ) {
  */
 function inpirations_add_meta_box() {
 
-	$post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
+	$post_id = isset($_GET['post']) ? $_GET['post'] : ( isset($_POST['post_ID']) ? $_POST['post_ID'] : false );
 	$template_file = get_post_meta($post_id,'_wp_page_template',TRUE);
 
 	$screens = array( 'page' );
@@ -461,7 +461,6 @@ class Inspirations_Widget_Text extends WP_Widget {
 			<img style="max-width: 100%; display: block; margin: 10px 0;" src="<?php echo $bg; ?>" class="preview-upload" />
 		</label></p>
 
-		<pre><?php print_r($instance); ?></pre>
 		<p><input id="<?php echo $this->get_field_id('filter'); ?>" name="<?php echo $this->get_field_name('filter'); ?>" type="checkbox" <?php checked(isset($instance['filter']) ? $instance['filter'] : 0); ?> />&nbsp;<label for="<?php echo $this->get_field_id('filter'); ?>"><?php _e('Automatically add paragraphs'); ?></label></p>
 		<?php
 	}
