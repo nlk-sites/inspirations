@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Hero Full Width
+ * The Default Template: Full Width Hero
  *
  * @package pgb
  */

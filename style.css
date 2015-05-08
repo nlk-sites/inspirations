@@ -28,12 +28,6 @@ nav#main-nav {
 	border: none;
 }
 
-.page-header {
-	padding-bottom: 0px;
-	margin-top: 0;
-	margin-bottom: 0;
-	border-bottom: none;
-}
 
 .sidebar {
 	border-left: 1px solid #e7e7e7;
@@ -52,6 +46,24 @@ nav#main-nav {
 	padding-left: 24px;
 	text-align: center;
 }
+.page-header {
+	padding-bottom: 0px;
+	margin-top: 0;
+	margin-bottom: 0;
+	border-bottom: none;
+}
+.page-header-content * {
+	color: #fff;
+}
+.page-header.with-content .page-header-image {
+	padding: 0;
+	overflow: hidden;
+}
+.page-header.with-content .page-header-image img {
+	min-height: 100%;
+	min-width: 100%;
+}
+
 
 /* logo */
 .navbar-brand {
@@ -174,6 +186,23 @@ article hr {
 
 
 /* footer */
+.footerwidgetarea .container {
+	background-color: #9a5613;
+	color: #fff;
+	text-align: center;
+}
+
+.footerwidgetarea h3 {
+	font-family: 'SourceSerifPro', serif;
+	color:  #ffffff;
+	font-size: 20px; /* Approximation due to font substitution */
+	font-weight: 400;
+	line-height: 24px; /* Approximation due to font substitution */
+	text-align: center;
+}
+
+
+
 .site-footer-inner-top {
 	padding-top: 20px;
 	padding-bottom: 20px;

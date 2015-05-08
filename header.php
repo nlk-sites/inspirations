@@ -51,12 +51,23 @@
     button.btn-primary, .btn.btn-primary {
       background-color: <?php echo $pagecolor; ?>;
       background-color: rgba(<?php echo implode(',', $cRGB); ?>, 1);
-      border: <?php echo $pagecolor; ?>;
+      border-color: <?php echo $pagecolor; ?>;
     }
     button.btn-primary:hover, .btn.btn-primary:hover {
       background-color: <?php echo $pagecolor; ?>;
       background-color: rgba(<?php echo implode(',', $cRGB); ?>,.8);
-      border: <?php echo $pagecolor; ?>;
+      border-color: <?php echo $pagecolor; ?>;
+    }
+    button.btn-secondary, .btn.btn-secondary {
+      background-color: <?php echo $pagecolor; ?>;
+      background-color: rgba(255,255,255,.2);
+      border-color: #fff;
+    }
+    button.btn-secondary:hover, .btn.btn-secondary:hover {
+      background-color: <?php echo $pagecolor; ?>;
+      background-color: rgba(255,255,255,.05);
+      border-color: #fff;
+      color: #fff;
     }
 
     </style>

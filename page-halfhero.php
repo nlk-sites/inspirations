@@ -1,13 +1,13 @@
 <?php
 /**
- * Template Name: Hero Full Width
+ * Template Name: Hero with Content
  *
  * @package pgb
  */
 
 get_header(); ?>
 
-	<?php get_template_part( 'posts', 'header' ); ?>
+	<?php get_template_part( 'posts', 'contentheader' ); ?>
 
 	<div id="content" class="main-content-inner col-sm-12 col-md-8">
 
