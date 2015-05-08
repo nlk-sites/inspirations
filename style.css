@@ -55,13 +55,18 @@ nav#main-nav {
 .page-header-content * {
 	color: #fff;
 }
-.page-header.with-content .page-header-image {
+.page-header.with-content .page-header-image, .page-header.with-content .page-header-map {
 	padding: 0;
 	overflow: hidden;
 }
 .page-header.with-content .page-header-image img {
 	min-height: 100%;
 	min-width: 100%;
+}
+.page-header.with-content .page-header-map iframe {
+	width: 100% !important;
+	height: 100% !important;
+	min-height: 490px;
 }
 
 
@@ -74,7 +79,7 @@ nav#main-nav {
 	margin-top: 20px;
 	margin-left: 10px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
 	nav#main-nav {
 		min-height: 50px;
 	}
@@ -121,6 +126,11 @@ ul#main-menu {
 }
 #main-menu > li:last-child > a:after {
 	content: none;
+}
+@media screen and (max-width: 767px) {
+	#main-menu > li > a:after {
+		content: none;
+	}
 }
 
 

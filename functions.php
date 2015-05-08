@@ -112,7 +112,7 @@ function inspirations_top_bar() {
 
 
 function hex2rgb( $colour ) {
-        if ( $colour[0] == '#' ) {
+        if ( !empty($colour) && $colour[0] == '#' ) {
                 $colour = substr( $colour, 1 );
         }
         if ( strlen( $colour ) == 6 ) {
@@ -153,7 +153,7 @@ function inpirations_add_meta_box() {
 			'core'
 		);
 
-		if( $template_file == 'page-halfhero.php' ) {
+		if( $template_file == 'page-halfhero.php' || $template_file == 'page-maphero.php' ) {
 			add_meta_box(
 				'inspirations_page_hero_content',
 				__( 'Hero Sidebar', 'inspirations' ),
