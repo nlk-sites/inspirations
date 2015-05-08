@@ -23,12 +23,42 @@
 
     <?php tha_head_bottom(); ?>
 
-    <?php $pagecolor = inspirations_page_color(); ?>
+    <?php 
+
+    $pagecolor = inspirations_page_color();
+    $cRGB = hex2rgb( $pagecolor );
+    ?>
 
     <style type="text/css">
+    article h3 {
+      color: <?php echo $pagecolor; ?>;
+    }
     .page-color {
       background-color: <?php echo $pagecolor; ?>;
     }
+    article a, .sidebar a,
+    article a:hover, .sidebar a:hover {
+      color: <?php echo $pagecolor; ?>;
+    }
+    button, .btn {
+      font-family: 'Source Sans Pro', 'Open Sans', arial, sans-serif;
+      color:  #ffffff;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 24px;
+      text-transform: uppercase;
+    }
+    button.btn-primary, .btn.btn-primary {
+      background-color: <?php echo $pagecolor; ?>;
+      background-color: rgba(<?php echo implode(',', $cRGB); ?>, 1);
+      border: <?php echo $pagecolor; ?>;
+    }
+    button.btn-primary:hover, .btn.btn-primary:hover {
+      background-color: <?php echo $pagecolor; ?>;
+      background-color: rgba(<?php echo implode(',', $cRGB); ?>,.8);
+      border: <?php echo $pagecolor; ?>;
+    }
+
     </style>
 
     <?php wp_head(); ?>

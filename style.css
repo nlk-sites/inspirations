@@ -94,6 +94,20 @@ ul#main-menu {
 	text-transform: uppercase;
 }
 
+#main-menu > li > a:after {
+	content: "";
+	display: inline-block;
+	border-right: 1px solid #b7b7b7;
+	width: 0;
+	height: 20px;
+	top: 5px;
+	position: relative;
+	left: 15px;
+}
+#main-menu > li:last-child > a:after {
+	content: none;
+}
+
 
 /* Page Colors */
 .page-color.page-header-top { height: 68px; }
@@ -109,6 +123,43 @@ ul#main-menu {
 	text-align: left;
 }
 .page-color.page-header-bottom { height: 12px; }
+
+
+/* page layout */
+article {
+	padding: 40px;
+}
+article h3 {
+	font-family: Arial;
+	font-size: 24px;
+	font-weight: 400;
+	letter-spacing: -0.48px;
+	line-height: 32px;
+	margin-top: 0;
+}
+
+/* sidebars */
+.sidebar h3 {
+	font-family: 'SourceSerifPro', serif;
+	color:  #464646;
+	font-size: 24px; /* Approximation due to font substitution */
+	font-weight: 400;
+	line-height: 24px; /* Approximation due to font substitution */
+	margin-top: 0;
+	text-align: left;
+}
+.sidebar aside {
+	margin-top: 40px;
+	margin-bottom: 0;
+}
+.sidebar aside > div {
+	padding-bottom: 40px;
+	border-bottom: 1px solid #e7e7e7;
+}
+.sidebar aside:last-child > div {
+	border-bottom: none;
+}
+
 
 /* footer */
 .site-footer-inner-top {

@@ -14,12 +14,6 @@
 				<?php do_action( 'before_sidebar' ); ?>
 				<?php if ( ! dynamic_sidebar( 'sidebar-1' ) ) : ?>
 
-					<aside id="search" class="widget widget_search col-xs-12 col-sm-6 col-md-12">
-						<div class="">
-							<?php get_search_form(); ?>
-						</div>
-					</aside>
-
 					<aside id="archives" class="widget widget_archive col-xs-12 col-sm-6 col-md-12">
 						<div class="col-lg-12">
 							<h3 class="widget-title"><?php _e( 'Archives', 'pgb' ); ?></h3>
