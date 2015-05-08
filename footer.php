@@ -130,7 +130,7 @@ $options = pgb_get_options();
 				<?php // Main Menu
 				wp_nav_menu(
 					array(
-						'theme_location' => 'footer',
+						'theme_location' => 'footer-menu',
 						'container' => false,
 						//'container_class' => 'top-view-primary-menu',
 						'menu_class' => 'nav navbar-nav ',

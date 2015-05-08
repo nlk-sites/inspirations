@@ -18,14 +18,12 @@ add_action( 'wp_enqueue_scripts', 'inpirations_scripts' );
  */
 
 function register_inspirations_menus() {
-	register_nav_menus(
-		array(
-			'footer-menu' => __( 'Footer Menu' )
-		)
-	);
+	register_nav_menu( 'footer-menu', __( 'Footer Menu' ) );
 }
 add_action( 'init', 'register_inspirations_menus' );
 
+
+add_filter('widget_text', 'do_shortcode');
 
 /**
  * Register widgetized areas.

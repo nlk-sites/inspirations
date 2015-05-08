@@ -120,8 +120,8 @@ ul#main-menu {
 	font-size: 32px; /* Approximation due to font substitution */
 	font-style: italic;
 	font-weight: 400;
-	line-height: 39px; /* Approximation due to font substitution */
-	margin-top: 14px;
+	line-height: 68px; /* Approximation due to font substitution */
+	margin-top: 0;
 	margin-left: 18px;
 	text-align: left;
 }
@@ -187,4 +187,22 @@ footer {
 	font-weight: 600;
 	letter-spacing: 0.375px;
 	line-height: 24px;
+}
+
+footer .navbar-nav > li > a {
+	font-family: 'Source Sans Pro', 'Open Sans', helvetica, arial, sans-serif;
+	color:  #56360d;
+	font-size: 15px;
+	font-weight: 400;
+	letter-spacing: 0.375px;
+	line-height: 24px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: center;
+	text-transform: uppercase;
+}
+footer .nav > li > a:hover, footer .nav > li > a:focus {
+	background-color: transparent;
 }
