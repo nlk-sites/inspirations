@@ -416,13 +416,14 @@ class Inspirations_Widget_Text extends WP_Widget {
 		 * @param WP_Widget $instance    WP_Widget instance.
 		 */
 		$text = apply_filters( 'widget_text', empty( $instance['text'] ) ? '' : $instance['text'], $instance );
-		echo '<div class="row" style="background-color:'.$color.'; height:17px;"></div>' . $args['before_widget'];
+		echo '<div class="front-page-widget col-xs-12 col-sm-4" style="background: url('.$bg.') no-repeat 50% 100%;">
+			<div class="row front-page-widget-color-bar" style="background-color:'.$color.'; height:17px;"></div>' . $args['before_widget'];
 		if ( ! empty( $title ) ) {
 			echo $args['before_title'] . $title . $args['after_title'];
 		} ?>
 			<div class="textwidget"><?php echo !empty( $instance['filter'] ) ? wpautop( $text ) : $text; ?></div>
 		<?php
-		echo $args['after_widget'] . '<div class="row front-page-widget-image"><img src="'.$bg.'"></div>';
+		echo $args['after_widget'] . '</div>';
 	}
 
 	public function update( $new_instance, $old_instance ) {

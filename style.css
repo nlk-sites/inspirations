@@ -170,12 +170,25 @@ article hr {
 }
 
 /* widgets */
+.front-page-widget {
+	/*background-size: contain !important;*/
+	background-size: 100% auto !important;
+}
 .front-page-widget .widget_text {
-	padding: 10px 20px 0;
+	padding: 10px 20px 200px;
 }
 .front-page-widget-image img {
 	bottom: 0;
 	/*position: absolute;*/
+}
+@media screen and (max-width: 767px) {
+	.front-page-widget {
+		background: none !important;
+		height: auto !important;
+	}
+	.front-page-widget .widget_text {
+		padding: 10px 20px 20px;
+	}
 }
 
 

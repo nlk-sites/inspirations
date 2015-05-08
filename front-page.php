@@ -25,15 +25,9 @@ get_header(); ?>
 
 					<div class="col-md-12">
 						<div class="row front-page-widgets">
-							<div class="front-page-widget col-xs-12 col-md-4">
-								<?php dynamic_sidebar( 'frontpage-widget' ); ?>
-							</div>
-							<div class="front-page-widget col-xs-12 col-md-4">
-								<?php dynamic_sidebar( 'frontpage-widget-2' ); ?>
-							</div>
-							<div class="front-page-widget col-xs-12 col-md-4">
-								<?php dynamic_sidebar( 'frontpage-widget-3' ); ?>
-							</div>
+							<?php dynamic_sidebar( 'frontpage-widget' ); ?>
+							<?php dynamic_sidebar( 'frontpage-widget-2' ); ?>
+							<?php dynamic_sidebar( 'frontpage-widget-3' ); ?>
 						</div>
 					</div>
 
