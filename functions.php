@@ -5,22 +5,51 @@
  * @package inspirations
  */
 
-function inpirations_scripts() {
-	wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
+
+/**
+ * Inspirations Init
+ *
+ */
+function inspirations_init() {
+	// Register new nav menu area
+	register_nav_menu( 'footer-menu', __( 'Footer Menu' ) );
+
+	// Remove PGB blocks
+	remove_action( 'pgb_block_header', 'pgb_load_block_header', 10 );
+
 }
-add_action( 'wp_enqueue_scripts', 'inpirations_scripts' );
+add_action( 'init', 'inspirations_init' );
 
 
 
 /**
- * Register menu areas.
+ * Enqueue front-end scripts
  *
  */
-
-function register_inspirations_menus() {
-	register_nav_menu( 'footer-menu', __( 'Footer Menu' ) );
+function inpirations_scripts() {
+	wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
+	wp_enqueue_script( 'inspirations-js', get_stylesheet_directory_uri() . '/includes/js/inspirations.js', array('jquery'), '', true );
 }
-add_action( 'init', 'register_inspirations_menus' );
+add_action( 'wp_enqueue_scripts', 'inpirations_scripts' );
+
+
+/**
+ * Enqueue special scripts for various media objects in admin
+ *
+ */
+function problogger_options_scripts(){
+	wp_enqueue_style( 'thickbox' );
+	wp_enqueue_script( 'thickbox' );
+	wp_enqueue_script( 'media-upload' );
+	wp_register_script( 'inspirations-options-js', get_stylesheet_directory_uri() . '/includes/js/media.js', array('jquery','media-upload','thickbox') );
+	wp_enqueue_script( 'inspirations-options-js' );
+}
+if ( is_admin() || (isset($_GET['post']) && isset($_GET['action']) && $_GET['action'] == 'edit') ) {
+	// loads on admin ProBlogger options and Page edit pages
+	add_action( 'admin_enqueue_scripts', 'problogger_options_scripts' );
+}
+
+
 
 
 add_filter('widget_text', 'do_shortcode');
@@ -31,6 +60,7 @@ add_filter('widget_text', 'do_shortcode');
  */
 function inspirations_widgets_init() {
 
+	// Register new Widget areas
 	register_sidebar( 
 		array(
 			'name'          => 'Header Top Left',
@@ -72,6 +102,19 @@ function inspirations_widgets_init() {
 		)
 	);
 
+	register_sidebars(3,array(
+        'name' 			=> 'Front Page Widget %d',
+        'id' 			=> 'frontpage-widget',
+        'description' 	=> 'Front Page Widget Area',
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget' 	=> '</div>',
+        'before_title' 	=> '<h2 class="widget-title">',
+        'after_title' 	=> '</h2>',
+    ));
+
+	// Register new custom widgets
+    register_widget( 'Inspirations_Widget_Text' );
+
 }
 add_action( 'widgets_init', 'inspirations_widgets_init' );
 
@@ -80,10 +123,7 @@ add_action( 'widgets_init', 'inspirations_widgets_init' );
  * Content Blocks to add and remove...
  *
  */
-add_action('init', 'remove_pgb_blocks');
-function remove_pgb_blocks() {
-	remove_action( 'pgb_block_header', 'pgb_load_block_header', 10 );
-}
+
 
 add_action( 'tha_header_before', 'inspirations_top_bar' );
 function inspirations_top_bar() {
@@ -153,7 +193,7 @@ function inpirations_add_meta_box() {
 			'core'
 		);
 
-		if( $template_file == 'page-halfhero.php' || $template_file == 'page-maphero.php' ) {
+		if( $template_file == 'page-halfhero.php' || $template_file == 'page-maphero.php' || $template_file == 'front-page.php' ) {
 			add_meta_box(
 				'inspirations_page_hero_content',
 				__( 'Hero Sidebar', 'inspirations' ),
@@ -327,7 +367,7 @@ function inspirations_hero_content(){
 
 
 /**
- * Video Custom Widget
+ * Video Custom Widget Type Thing
  *
  * @since 1.0
  */
@@ -343,3 +383,85 @@ function show_custom_video_widget() {
 	<?php
 }
 add_action( 'tha_sidebar_bottom', 'show_custom_video_widget', 10 );
+
+
+
+/**
+ * Custom Front Page Text widget class
+ *
+ * @since 2.8.0
+ */
+class Inspirations_Widget_Text extends WP_Widget {
+
+	public function __construct() {
+		$widget_ops = array('classname' => 'widget_text', 'description' => __('Arbitrary text or HTML.'));
+		$control_ops = array('width' => 400, 'height' => 350);
+		parent::__construct('front_page_text', __('Front Page Text'), $widget_ops, $control_ops);
+	}
+
+	public function widget( $args, $instance ) {
+
+		/** This filter is documented in wp-includes/default-widgets.php */
+		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
+		
+		$color = empty( $instance['color'] ) ? '' : $instance['color'];
+		$bg = empty( $instance['bground'] ) ? '' : htmlspecialchars_decode($instance['bground']);
+
+		/**
+		 * Filter the content of the Text widget.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param string    $widget_text The widget content.
+		 * @param WP_Widget $instance    WP_Widget instance.
+		 */
+		$text = apply_filters( 'widget_text', empty( $instance['text'] ) ? '' : $instance['text'], $instance );
+		echo '<div class="row" style="background-color:'.$color.'; height:17px;"></div>' . $args['before_widget'];
+		if ( ! empty( $title ) ) {
+			echo $args['before_title'] . $title . $args['after_title'];
+		} ?>
+			<div class="textwidget"><?php echo !empty( $instance['filter'] ) ? wpautop( $text ) : $text; ?></div>
+		<?php
+		echo $args['after_widget'] . '<div class="row front-page-widget-image"><img src="'.$bg.'"></div>';
+	}
+
+	public function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$instance['title'] = strip_tags($new_instance['title']);
+		$instance['color'] = $new_instance['color'];
+		$instance['bground'] = esc_html($new_instance['bground']);
+		if ( current_user_can('unfiltered_html') )
+			$instance['text'] =  $new_instance['text'];
+		else
+			$instance['text'] = stripslashes( wp_filter_post_kses( addslashes($new_instance['text']) ) ); // wp_filter_post_kses() expects slashed
+		$instance['filter'] = ! empty( $new_instance['filter'] );
+		return $instance;
+	}
+
+	public function form( $instance ) {
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'color' => '#ffffff', 'bground' => '' ) );
+		$title = strip_tags($instance['title']);
+		$color = $instance['color'];
+		$bg = htmlspecialchars_decode($instance['bground']);
+		$text = esc_textarea($instance['text']);
+		?>
+		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
+		
+		<p><label for="<?php echo $this->get_field_id('color'); ?>"><?php _e('Color:'); ?></label><br />
+		<input type="text" name="<?php echo $this->get_field_name('color'); ?>" value="<?php echo esc_attr($color); ?>" class="wp-color-picker-field" data-default-color="" /></p>
+		
+		<textarea class="widefat" rows="16" cols="20" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>"><?php echo $text; ?></textarea>
+
+		<p><label for="<?php echo $this->get_field_id('bground'); ?>" class="upload"><?php _e( 'Background Image' ); ?>
+			<input type="text" id="<?php echo $this->get_field_id('bground'); ?>" class="text-upload" name="<?php echo $this->get_field_name('bground'); ?>" value="<?php echo $bg; ?>" />
+			<input type="button" class="button button-upload" value="Upload"/>
+			</br>
+			<img style="max-width: 100%; display: block; margin: 10px 0;" src="<?php echo $bg; ?>" class="preview-upload" />
+		</label></p>
+
+		<pre><?php print_r($instance); ?></pre>
+		<p><input id="<?php echo $this->get_field_id('filter'); ?>" name="<?php echo $this->get_field_name('filter'); ?>" type="checkbox" <?php checked(isset($instance['filter']) ? $instance['filter'] : 0); ?> />&nbsp;<label for="<?php echo $this->get_field_id('filter'); ?>"><?php _e('Automatically add paragraphs'); ?></label></p>
+		<?php
+	}
+}

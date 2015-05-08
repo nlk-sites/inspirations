@@ -169,6 +169,16 @@ article hr {
 	border-top-width: 4px;
 }
 
+/* widgets */
+.front-page-widget .widget_text {
+	padding: 10px 20px 0;
+}
+.front-page-widget-image img {
+	bottom: 0;
+	/*position: absolute;*/
+}
+
+
 /* sidebars */
 .sidebar h3 {
 	font-family: 'SourceSerifPro', serif;

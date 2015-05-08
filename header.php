@@ -69,7 +69,9 @@
       border-color: #fff;
       color: #fff;
     }
-
+    #main-menu .dropdown-menu > .active > a, #main-menu .dropdown-menu > .active > a:hover, #main-menu .dropdown-menu > .active > a:focus {
+      background-color: <?php echo $pagecolor; ?>;
+    }
     </style>
 
     <?php wp_head(); ?>
