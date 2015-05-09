@@ -238,29 +238,32 @@ article hr {
 .sidebar-subscribe-form {
 	position: relative;
 }
-.sidebar-subscribe-form form label {
+.sidebar-subscribe-form .gform_wrapper .top_label .gfield_label {
 	display: none;
 }
-.sidebar-subscribe-form form .gform_body {
-	width: 80%;
+.sidebar-subscribe-form .gform_wrapper .gform_body {
+	display: inline-block;
+	width: 79%;
 }
-.sidebar-subscribe-form form .gform_body .gfield {
-	widows: 100%;
+.sidebar-subscribe-form .gform_wrapper .gform_body .gfield {
+	width: 100%;
 }
-.sidebar-subscribe-form form .gform_footer.form-group {
+.sidebar-subscribe-form .gform_wrapper .gform_footer.form-group {
 	padding: 0;
 	margin: 0;
+	display: inline-block;
 }
-.sidebar-subscribe-form form input[type="email"] {
+.sidebar-subscribe-form .gform_wrapper input[type="email"] {
 	border-bottom-right-radius: 0;
 	border-top-right-radius: 0;
-	width: 100%;
+	width: 100% !important;
 }
 .sidebar-subscribe-form form input[id^="gform_submit"] {
 	border-bottom-left-radius: 0;
 	border-top-left-radius: 0;
 	height: 46px;
-	margin-left: -3px;
+	margin-left: -5px;
+	margin-top: -2px;
 }
 
 /* footer */
