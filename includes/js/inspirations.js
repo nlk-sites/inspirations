@@ -7,11 +7,11 @@
 		if ( $(".row.front-page-widgets").length > 0 ) {
 			var m = -1;
 			$(".front-page-widget").each(function() {
-				var h = $(this).height();
+				var h = $(this).find(".widget_text").height();
 				m = h > m ? h : m;
 			});
 			$(".front-page-widget").each(function() {
-				$(this).height( m );
+				$(this).find(".widget_text").height( m );
 			});
 		}
 	}
@@ -27,7 +27,7 @@
 		if ( v != w ) {
 			
 			$(".front-page-widget").each(function() {
-				$(this).css( 'height', '' );
+				$(this).find(".widget_text").css( 'height', '' );
 			});
 			
 			setColHeight();

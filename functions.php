@@ -396,7 +396,93 @@ class Inspirations_Widget_Text extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array('classname' => 'widget_text', 'description' => __('Arbitrary text or HTML.'));
 		$control_ops = array('width' => 400, 'height' => 350);
-		parent::__construct('front_page_text', __('Front Page Text'), $widget_ops, $control_ops);
+		parent::__construct('front_page_text', __('Inspirations: Front Page Text'), $widget_ops, $control_ops);
+	}
+
+	public function widget( $args, $instance ) {
+
+		/** This filter is documented in wp-includes/default-widgets.php */
+		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
+		
+		$color = empty( $instance['color'] ) ? '' : $instance['color'];
+		$bg = empty( $instance['bground'] ) ? '' : '<img src="' . htmlspecialchars_decode($instance['bground']) . '" />';
+		$link = empty( $instance['link'] ) ? $bg : '<a href="' . htmlspecialchars_decode($instance['link']) . '">' . $bg . '</a>';
+
+		/**
+		 * Filter the content of the Text widget.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param string    $widget_text The widget content.
+		 * @param WP_Widget $instance    WP_Widget instance.
+		 */
+		$text = apply_filters( 'widget_text', empty( $instance['text'] ) ? '' : $instance['text'], $instance );
+		echo '<div class="front-page-widget col-xs-12 col-sm-4">
+			<div class="row front-page-widget-color-bar" style="background-color:'.$color.'; height:17px;"></div>' . $args['before_widget'];
+		if ( ! empty( $title ) ) {
+			echo $args['before_title'] . '<span style="color:'.$color.';">' . $title . '</span>' . $args['after_title'];
+		} ?>
+			<div class="textwidget"><?php echo !empty( $instance['filter'] ) ? wpautop( $text ) : $text; ?></div>
+		<?php
+		echo $args['after_widget'] . '<div class="front-page-widget-img">'.$link.'</div></div>';
+	}
+
+	public function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$instance['title'] = strip_tags($new_instance['title']);
+		$instance['color'] = $new_instance['color'];
+		$instance['bground'] = esc_html($new_instance['bground']);
+		$instance['link'] = esc_html($new_instance['link']);
+		if ( current_user_can('unfiltered_html') )
+			$instance['text'] =  $new_instance['text'];
+		else
+			$instance['text'] = stripslashes( wp_filter_post_kses( addslashes($new_instance['text']) ) ); // wp_filter_post_kses() expects slashed
+		$instance['filter'] = ! empty( $new_instance['filter'] );
+		return $instance;
+	}
+
+	public function form( $instance ) {
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'color' => '#ffffff', 'bground' => '', 'link' => '' ) );
+		$title = strip_tags($instance['title']);
+		$color = $instance['color'];
+		$bg = htmlspecialchars_decode($instance['bground']);
+		$link = htmlspecialchars_decode($instance['link']);
+		$text = esc_textarea($instance['text']);
+		?>
+		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
+		
+		<p><label for="<?php echo $this->get_field_id('color'); ?>"><?php _e('Color:'); ?></label><br />
+		<input type="text" name="<?php echo $this->get_field_name('color'); ?>" value="<?php echo esc_attr($color); ?>" class="wp-color-picker-field" data-default-color="" /></p>
+		
+		<textarea class="widefat" rows="16" cols="20" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>"><?php echo $text; ?></textarea>
+
+		<p><label for="<?php echo $this->get_field_id('bground'); ?>" class="upload"><?php _e( 'Background Image' ); ?>
+			<input type="text" id="<?php echo $this->get_field_id('bground'); ?>" class="text-upload" name="<?php echo $this->get_field_name('bground'); ?>" value="<?php echo $bg; ?>" />
+			<input type="button" class="button button-upload" value="Upload"/>
+			</br>
+			<img style="max-width: 100%; display: block; margin: 10px 0;" src="<?php echo $bg; ?>" class="preview-upload" />
+		</label></p>
+
+		<p><label for="<?php echo $this->get_field_id('link'); ?>"><?php _e('Image Link URL:'); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id('link'); ?>" name="<?php echo $this->get_field_name('link'); ?>" type="text" value="<?php echo esc_attr($link); ?>" /></p>
+		
+		<p><input id="<?php echo $this->get_field_id('filter'); ?>" name="<?php echo $this->get_field_name('filter'); ?>" type="checkbox" <?php checked(isset($instance['filter']) ? $instance['filter'] : 0); ?> />&nbsp;<label for="<?php echo $this->get_field_id('filter'); ?>"><?php _e('Automatically add paragraphs'); ?></label></p>
+		<?php
+	}
+}
+
+/**
+ * Custom Front Page Text widget class
+ *
+ * @since 2.8.0
+ */
+class Inspirations_Widget_Video extends WP_Widget {
+
+	public function __construct() {
+		$widget_ops = array('classname' => 'widget_text', 'description' => __('Arbitrary text or HTML.'));
+		$control_ops = array('width' => 400, 'height' => 350);
+		parent::__construct('sidebar_video', __('Inspirations: Sidebar Video'), $widget_ops, $control_ops);
 	}
 
 	public function widget( $args, $instance ) {
@@ -419,7 +505,7 @@ class Inspirations_Widget_Text extends WP_Widget {
 		echo '<div class="front-page-widget col-xs-12 col-sm-4" style="background: url('.$bg.') no-repeat 50% 100%;">
 			<div class="row front-page-widget-color-bar" style="background-color:'.$color.'; height:17px;"></div>' . $args['before_widget'];
 		if ( ! empty( $title ) ) {
-			echo $args['before_title'] . $title . $args['after_title'];
+			echo $args['before_title'] . '<span style="color:'.$color.';">' . $title . '</span>' . $args['after_title'];
 		} ?>
 			<div class="textwidget"><?php echo !empty( $instance['filter'] ) ? wpautop( $text ) : $text; ?></div>
 		<?php
