@@ -114,6 +114,7 @@ function inspirations_widgets_init() {
 
 	// Register new custom widgets
     register_widget( 'Inspirations_Widget_Text' );
+    register_widget( 'Inspirations_Widget_Video' );
 
 }
 add_action( 'widgets_init', 'inspirations_widgets_init' );
@@ -367,26 +368,6 @@ function inspirations_hero_content(){
 
 
 /**
- * Video Custom Widget Type Thing
- *
- * @since 1.0
- */
-function show_custom_video_widget() {
-	?>
-
-		<aside id="inspirations-video-custom-widget" class="widget">
-			<a href="https://www.youtube.com/watch?v=DVvBURjTXFo" target="_blank">
-				<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/video_image.png" />
-			</a>
-		</aside>
-
-	<?php
-}
-add_action( 'tha_sidebar_bottom', 'show_custom_video_widget', 10 );
-
-
-
-/**
  * Custom Front Page Text widget class
  *
  * @since 2.8.0
@@ -490,8 +471,8 @@ class Inspirations_Widget_Video extends WP_Widget {
 		/** This filter is documented in wp-includes/default-widgets.php */
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
 		
-		$color = empty( $instance['color'] ) ? '' : $instance['color'];
-		$bg = empty( $instance['bground'] ) ? '' : htmlspecialchars_decode($instance['bground']);
+		$bg = empty( $instance['bground'] ) ? '' : '<img src="' . htmlspecialchars_decode($instance['bground']) . '" />';
+		$link = empty( $instance['link'] ) ? $bg : '<a href="' . htmlspecialchars_decode($instance['link']) . '">' . $bg . '</a>';
 
 		/**
 		 * Filter the content of the Text widget.
@@ -502,14 +483,17 @@ class Inspirations_Widget_Video extends WP_Widget {
 		 * @param WP_Widget $instance    WP_Widget instance.
 		 */
 		$text = apply_filters( 'widget_text', empty( $instance['text'] ) ? '' : $instance['text'], $instance );
-		echo '<div class="front-page-widget col-xs-12 col-sm-4" style="background: url('.$bg.') no-repeat 50% 100%;">
-			<div class="row front-page-widget-color-bar" style="background-color:'.$color.'; height:17px;"></div>' . $args['before_widget'];
+		echo $args['before_widget'];
 		if ( ! empty( $title ) ) {
-			echo $args['before_title'] . '<span style="color:'.$color.';">' . $title . '</span>' . $args['after_title'];
+			echo $args['before_title'] . $title . $args['after_title'];
 		} ?>
 			<div class="textwidget"><?php echo !empty( $instance['filter'] ) ? wpautop( $text ) : $text; ?></div>
+			
 		<?php
-		echo $args['after_widget'] . '</div>';
+		echo $args['after_widget'];
+		?>
+		<div class="sidebar-video-widget"><?php echo $link; ?></div>
+		<?php
 	}
 
 	public function update( $new_instance, $old_instance ) {
@@ -517,6 +501,7 @@ class Inspirations_Widget_Video extends WP_Widget {
 		$instance['title'] = strip_tags($new_instance['title']);
 		$instance['color'] = $new_instance['color'];
 		$instance['bground'] = esc_html($new_instance['bground']);
+		$instance['link'] = esc_html($new_instance['link']);
 		if ( current_user_can('unfiltered_html') )
 			$instance['text'] =  $new_instance['text'];
 		else
@@ -526,10 +511,11 @@ class Inspirations_Widget_Video extends WP_Widget {
 	}
 
 	public function form( $instance ) {
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'color' => '#ffffff', 'bground' => '' ) );
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'color' => '#ffffff', 'bground' => '', 'link' => '' ) );
 		$title = strip_tags($instance['title']);
 		$color = $instance['color'];
 		$bg = htmlspecialchars_decode($instance['bground']);
+		$link = htmlspecialchars_decode($instance['link']);
 		$text = esc_textarea($instance['text']);
 		?>
 		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
@@ -547,6 +533,9 @@ class Inspirations_Widget_Video extends WP_Widget {
 			<img style="max-width: 100%; display: block; margin: 10px 0;" src="<?php echo $bg; ?>" class="preview-upload" />
 		</label></p>
 
+		<p><label for="<?php echo $this->get_field_id('link'); ?>"><?php _e('Image Link URL:'); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id('link'); ?>" name="<?php echo $this->get_field_name('link'); ?>" type="text" value="<?php echo esc_attr($link); ?>" /></p>
+		
 		<p><input id="<?php echo $this->get_field_id('filter'); ?>" name="<?php echo $this->get_field_name('filter'); ?>" type="checkbox" <?php checked(isset($instance['filter']) ? $instance['filter'] : 0); ?> />&nbsp;<label for="<?php echo $this->get_field_id('filter'); ?>"><?php _e('Automatically add paragraphs'); ?></label></p>
 		<?php
 	}

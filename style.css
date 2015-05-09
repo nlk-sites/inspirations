@@ -228,6 +228,10 @@ article hr {
 .sidebar aside:last-child > div {
 	border-bottom: none;
 }
+.sidebar aside[id^="sidebar_video"] > div {
+	border-bottom: none;
+	padding-bottom: 20px;
+}
 
 #inspirations-video-custom-widget img {
 	margin-top: 40px;
