@@ -475,7 +475,7 @@ class Inspirations_Widget_Video extends WP_Widget {
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
 		
 		$bg = empty( $instance['bground'] ) ? '' : '<img src="' . htmlspecialchars_decode($instance['bground']) . '" />';
-		$link = empty( $instance['link'] ) ? $bg : '<a href="' . htmlspecialchars_decode($instance['link']) . '">' . $bg . '</a>';
+		$link = empty( $instance['link'] ) ? '<a href="#missing-video">' . $bg . '</a>' : '<a href="' . htmlspecialchars_decode($instance['link']) . '">' . $bg . '</a>';
 
 		/**
 		 * Filter the content of the Text widget.
