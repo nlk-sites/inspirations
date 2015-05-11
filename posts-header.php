@@ -22,7 +22,7 @@ $attr = array(
 			<?php the_title( '<h1 class="page-title">', '</h1>' ); ?>
 		</div>
 
-		<div class="page-color page-header-image">
+		<div class="page-color page-header-image clear">
 			<?php echo the_post_thumbnail( $size, $attr ); ?>
 		</div>
 
