@@ -344,9 +344,9 @@ footer .nav > li > a:hover, footer .nav > li > a:focus {
 	border-radius: 10px;
 	color: transparent;
 	display: block;
-	height: 6px;
+	height: 10px;
 	margin: 6px;
-	width: 6px;
+	width: 10px;
 }
 .bx-pager .bx-pager-item a.active {
 	background-color: #ffffff;
