@@ -46,9 +46,4 @@
 			auto: true
 		});
 	});
-	/*var w = $(".bx-viewport").width();
-	console.log(w);
-	$("li.testimonial-slide").each(function(){
-		$(this).width(w);
-	});*/
 })(jQuery);
