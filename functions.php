@@ -28,7 +28,9 @@ add_action( 'init', 'inspirations_init' );
  */
 function inpirations_scripts() {
 	wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
-	wp_enqueue_script( 'inspirations-js', get_stylesheet_directory_uri() . '/includes/js/inspirations.js', array('jquery'), '', true );
+	//wp_enqueue_style( 'bxslider-css', get_stylesheet_directory_uri() . '/includes/css/jquery.bxslider.css' );
+	wp_enqueue_script( 'inspirations-js', get_stylesheet_directory_uri() . '/includes/js/jquery.bxslider.min.js', array('jquery'), '', true );
+	wp_enqueue_script( 'bxslider-js', get_stylesheet_directory_uri() . '/includes/js/inspirations.js', array('jquery'), '', true );
 }
 add_action( 'wp_enqueue_scripts', 'inpirations_scripts' );
 
@@ -115,6 +117,7 @@ function inspirations_widgets_init() {
 	// Register new custom widgets
     register_widget( 'Inspirations_Widget_Text' );
     register_widget( 'Inspirations_Widget_Video' );
+    register_widget( 'Inspirations_Widget_Testimonials' );
 
 }
 add_action( 'widgets_init', 'inspirations_widgets_init' );
@@ -534,4 +537,205 @@ class Inspirations_Widget_Video extends WP_Widget {
 		<p><input id="<?php echo $this->get_field_id('filter'); ?>" name="<?php echo $this->get_field_name('filter'); ?>" type="checkbox" <?php checked(isset($instance['filter']) ? $instance['filter'] : 0); ?> />&nbsp;<label for="<?php echo $this->get_field_id('filter'); ?>"><?php _e('Automatically add paragraphs'); ?></label></p>
 		<?php
 	}
+}
+
+
+
+/**
+ * Custom Testimonials widget class
+ *
+ * @since 2.8.0
+ */
+class Inspirations_Widget_Testimonials extends WP_Widget {
+
+	public function __construct() {
+		$widget_ops = array('classname' => 'widget_text', 'description' => __('Arbitrary text or HTML.'));
+		$control_ops = array('width' => 400, 'height' => 350);
+		parent::__construct('testimnonials_widget', __('Inspirations: Testimonials Widget'), $widget_ops, $control_ops);
+	}
+
+	public function widget( $args, $instance ) {
+
+		/** This filter is documented in wp-includes/default-widgets.php */
+		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
+		$sepimg = empty( $instance['sepimg'] ) ? '' : '<p><img src="' . htmlspecialchars_decode($instance['sepimg']) . '" /></p>';
+
+		/**
+		 * Filter the content of the Text widget.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param string    $widget_text The widget content.
+		 * @param WP_Widget $instance    WP_Widget instance.
+		 */
+		$text = apply_filters( 'widget_text', empty( $instance['text'] ) ? '' : $instance['text'], $instance );
+		echo $args['before_widget'];
+		if ( ! empty( $title ) ) {
+			echo $args['before_title'] . $title . $args['after_title'];
+			echo $sepimg;
+		} ?>
+		<ul class="bxslider">
+			<?php insp_testimonials_output(); ?>
+		</ul>
+		<?php
+		echo $args['after_widget'];
+	}
+
+	public function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$instance['title'] = strip_tags($new_instance['title']);
+		$instance['sepimg'] = esc_html($new_instance['sepimg']);
+		if ( current_user_can('unfiltered_html') )
+			$instance['text'] =  $new_instance['text'];
+		else
+			$instance['text'] = stripslashes( wp_filter_post_kses( addslashes($new_instance['text']) ) ); // wp_filter_post_kses() expects slashed
+		$instance['filter'] = ! empty( $new_instance['filter'] );
+		return $instance;
+	}
+
+	public function form( $instance ) {
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'sepimg' => '' ) );
+		$title = strip_tags($instance['title']);
+		$text = esc_textarea($instance['text']);
+		$sepimg = htmlspecialchars_decode($instance['sepimg']);
+		?>
+		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
+
+		<p><label for="<?php echo $this->get_field_id('sepimg'); ?>" class="upload"><?php _e( 'Separator Image' ); ?>
+			<input type="text" id="<?php echo $this->get_field_id('sepimg'); ?>" class="text-upload" name="<?php echo $this->get_field_name('sepimg'); ?>" value="<?php echo $sepimg; ?>" />
+			<input type="button" class="button button-upload" value="Upload"/>
+			</br>
+			<img style="max-width: 100%; display: block; margin: 10px 0;" src="<?php echo $sepimg; ?>" class="preview-upload" />
+		</label></p>
+
+		<p><input id="<?php echo $this->get_field_id('filter'); ?>" name="<?php echo $this->get_field_name('filter'); ?>" type="checkbox" <?php checked(isset($instance['filter']) ? $instance['filter'] : 0); ?> />&nbsp;<label for="<?php echo $this->get_field_id('filter'); ?>"><?php _e('Automatically add paragraphs'); ?></label></p>
+		<?php
+	}
+}
+
+
+
+function insp_testimonials_init() {	
+	// add "Testimonials" Custom Post Type
+	register_post_type( 'insp_testimonials',
+		array(
+			'labels' => array(
+				'name' => 'Customer Testimonials',
+				'singular_name' => 'Testimonial',
+				'add_new_item' => 'Add New Testimonial',
+				'edit_item' => 'Edit Testimonial',
+				'new_item' => 'New Testimonial',
+				'view_item' => 'View Testimonial',
+				'search_items' => 'Search Testimonials',
+				'not_found' =>  'No testimonial found',
+				'not_found_in_trash' => 'No testimonials found in Trash', 
+				'parent_item_colon' => '',
+				'menu_name' => 'Testimonials'
+			),
+			'public' => true,
+			'public_queryable' => true,
+			'exclude_from_search' => true,
+			'show_in_menu' => true,
+			'menu_position' => 41,
+			'hierarchical' => false,
+			'supports' => array('title','editor','revisions','page-attributes'),
+			'register_meta_box_cb' => 'insp_testimonials_metaboxes',
+			'taxonomies' => array('insp_testimonials_cats'),
+		)
+	);
+	
+	$labels = array(
+		'name' => _x( 'Testimonial Categories', 'taxonomy general name' ),
+		'singular_name' => _x( 'Testimonial Category', 'taxonomy singular name' ),
+		'search_items' =>  __( 'Search Testimonial Categories' ),
+		'all_items' => __( 'All Testimonial Categories' ),
+		'parent_item' => __( 'Parent Category' ),
+		'parent_item_colon' => __( 'Parent Category:' ),
+		'edit_item' => __( 'Edit Testimonial Category' ), 
+		'update_item' => __( 'Update Category' ),
+		'add_new_item' => __( 'Add New Testimonial Category' ),
+		'new_item_name' => __( 'New Testimonial Category Name' ),
+		'menu_name' => __( 'Categories' ),
+	); 	
+	
+	register_taxonomy('insp_testimonials_cats',array('insp_testimonials'), array(
+		'hierarchical' => true,
+		'labels' => $labels,
+		'show_ui' => true,
+		'show_admin_column' => true,
+		'query_var' => true,
+		'rewrite' => array( 'slug' => 'testimonialcats' ),
+	));
+}
+add_action( 'init', 'insp_testimonials_init' );
+
+
+function insp_testimonials_metaboxes() {
+	add_meta_box("insp_testimonials_metabox", "Author Info", "insp_testimonials_metabox", "insp_testimonials", "normal", "high");
+}
+
+function insp_testimonials_metabox() {
+	global $post;
+	$custom = get_post_meta($post->ID,'_insp_testimonials');
+	$auth = isset($custom[0]) ? $custom[0] : '';
+	$defaults = array(
+		'auth' => 'John Q Smith',
+		'loc' => ''
+	);
+	if ( $auth == '' ) {
+		$auth = $defaults;
+	} else {
+		$auth = array_merge($defaults, $auth);
+	}
+	?>
+    <table width="100%">
+    <tr><td><label for="insp_testimonials_author[auth]">Name</label></td>
+    <td><input type="text" name="insp_testimonials_author[auth]" value="<?php echo esc_attr($auth['auth']); ?>" size="60" maxlength="60" /></td></tr>
+    <tr><td><label for="insp_testimonials_author[loc]">Location/Title</label></td>
+    <td><input type="text" name="insp_testimonials_author[loc]" value="<?php echo esc_attr($auth['loc']); ?>" size="60" maxlength="60" /></td></tr>
+    </table>
+<?php
+}
+
+function insp_testimonials_save($post_id){
+	// verify if this is an auto save routine. If it is our form has not been submitted, so we dont want
+	// to do anything
+	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) 
+	return $post_id;
+	
+	
+	// Check permissions
+	if ( isset($_POST['post_type']) && $_POST['post_type'] == 'insp_testimonials' ) {
+		if ( !current_user_can( 'edit_page', $post_id ) ) return $post_id;
+	} else {
+	//if ( !current_user_can( 'edit_post', $post_id ) )
+	  return $post_id;
+	}
+	
+	// OK, we're authenticated: we need to find and save the data
+	$auth = $_POST['insp_testimonials_author'];
+	// sanitize
+	$fields = array( 'auth', 'loc' );
+	foreach ( $fields as $field ) {
+		$auth[$field] = wp_kses( substr( $auth[$field], 0, 60 ), array() );
+	}
+	
+	update_post_meta($post_id, "_insp_testimonials", $auth);
+	return $auth;
+}
+add_action('save_post', 'insp_testimonials_save');
+
+function insp_testimonials_output() {
+	$args = array( 'post_type' => 'insp_testimonials' );
+	$testimonial_posts = get_posts( $args );
+	foreach ( $testimonial_posts as $post ) : setup_postdata($post); ?>
+	<?php $custom = get_post_meta( $post->ID, '_insp_testimonials', true ); ?>
+		<li class="testimonial-slide">
+			<?php echo the_content(); ?>
+			<p class="author"><?php echo $custom['auth']; ?></p>
+		</li>
+	<?php unset( $custom ); ?>
+	<?php endforeach; 
+	wp_reset_postdata();
 }

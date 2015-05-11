@@ -320,3 +320,52 @@ footer .navbar-nav > li > a {
 footer .nav > li > a:hover, footer .nav > li > a:focus {
 	background-color: transparent;
 }
+
+
+.bx-viewport {
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+	border: none !important;
+	left: 0px !important;
+	background: transparent !important;
+	height: auto !important;
+}
+.bx-controls-direction {
+	display: none;
+}
+.bx-pager {
+	margin-top: 20px;
+}
+.bx-pager .bx-pager-item {
+	display: inline-block;
+}
+.bx-pager .bx-pager-item a {
+	border: 1px solid #fff;
+	border-radius: 10px;
+	color: transparent;
+	display: block;
+	height: 6px;
+	margin: 6px;
+	width: 6px;
+}
+.bx-pager .bx-pager-item a.active {
+	background-color: #ffffff;
+	background-color: rgba(255, 255, 255, .5);
+}
+
+@media screen and (min-width: 992px){
+	.testimonial-slide {
+		width: 940px !important;
+	}
+}
+@media screen and (min-width: 1200px){
+	.testimonial-slide {
+		width: 1140px !important;
+	}
+}
+.testimonial-slide p {
+	font-size: 16px;
+}
+.testimonial-slide .author {
+	font-weight: 700;
+}

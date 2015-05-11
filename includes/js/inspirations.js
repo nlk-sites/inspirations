@@ -19,7 +19,7 @@
 	$(window).load( function(){
 		setColHeight();
 		w = $(".row.front-page-widgets").width();
-		console.log(w);
+		//console.log(w);
 	});
 
 	$(window).resize(function() {
@@ -35,4 +35,10 @@
 		}
 	});
 
+})(jQuery);
+
+
+( function($){
+	// Testimonials Slider
+	$('.bxslider').bxSlider();
 })(jQuery);
