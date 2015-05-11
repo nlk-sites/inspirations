@@ -499,7 +499,6 @@ class Inspirations_Widget_Video extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['title'] = strip_tags($new_instance['title']);
-		$instance['color'] = $new_instance['color'];
 		$instance['bground'] = esc_html($new_instance['bground']);
 		$instance['link'] = esc_html($new_instance['link']);
 		if ( current_user_can('unfiltered_html') )
@@ -511,18 +510,14 @@ class Inspirations_Widget_Video extends WP_Widget {
 	}
 
 	public function form( $instance ) {
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'color' => '#ffffff', 'bground' => '', 'link' => '' ) );
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'bground' => '', 'link' => '' ) );
 		$title = strip_tags($instance['title']);
-		$color = $instance['color'];
 		$bg = htmlspecialchars_decode($instance['bground']);
 		$link = htmlspecialchars_decode($instance['link']);
 		$text = esc_textarea($instance['text']);
 		?>
 		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
-		
-		<p><label for="<?php echo $this->get_field_id('color'); ?>"><?php _e('Color:'); ?></label><br />
-		<input type="text" name="<?php echo $this->get_field_name('color'); ?>" value="<?php echo esc_attr($color); ?>" class="wp-color-picker-field" data-default-color="" /></p>
 		
 		<textarea class="widefat" rows="16" cols="20" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>"><?php echo $text; ?></textarea>
 

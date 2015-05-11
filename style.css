@@ -99,7 +99,7 @@ nav#main-nav {
 
 /* top menu */
 ul#main-menu {
-	margin-top: 18px;
+	margin-top: 16px;
 }
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
@@ -131,7 +131,7 @@ ul#main-menu {
 	left: 15px;
 }
 #main-menu > li:last-child > a:after {
-	content: none;
+	border-right: none;
 }
 @media screen and (max-width: 767px) {
 	#main-menu > li > a:after {
