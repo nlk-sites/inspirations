@@ -352,7 +352,7 @@ footer .nav > li > a:hover, footer .nav > li > a:focus {
 	background-color: #ffffff;
 	background-color: rgba(255, 255, 255, .5);
 }
-
+/*
 @media screen and (min-width: 992px){
 	.testimonial-slide {
 		width: 940px !important;
@@ -363,7 +363,7 @@ footer .nav > li > a:hover, footer .nav > li > a:focus {
 		width: 1140px !important;
 	}
 }
-
+*/
 .testimonial-slide {
 	padding: 0 2%;
 }
