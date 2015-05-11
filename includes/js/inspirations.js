@@ -40,5 +40,8 @@
 
 ( function($){
 	// Testimonials Slider
-	$('.bxslider').bxSlider();
+	$('.bxslider').bxSlider({
+		controls: false,
+		auto: true
+	});
 })(jQuery);
