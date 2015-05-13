@@ -66,7 +66,7 @@ nav#main-nav {
 	overflow: hidden;
 }
 .page-header.with-content .page-header-image img {
-	min-height: 100%;
+	/*min-height: 100%;*/
 	min-width: 100%;
 }
 .page-header.with-content .page-header-map iframe {
@@ -141,7 +141,11 @@ ul#main-menu {
 
 
 /* Page Colors */
-.page-color.page-header-top { height: 68px; }
+.page-color.page-header-top { 
+	min-height: 68px;
+	padding-top: 14px;
+	padding-bottom: 10px;
+}
 .page-color.page-header-top h1 {
 	color:  #ffffff;
 	font-family: 'SourceSerifPro', 'Source Serif Pro';
@@ -150,6 +154,7 @@ ul#main-menu {
 	font-weight: 400;
 	line-height: 68px; /* Approximation due to font substitution */
 	margin-top: 0;
+	margin-bottom: 0;
 	margin-left: 18px;
 	text-align: left;
 }
