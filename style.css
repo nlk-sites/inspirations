@@ -39,6 +39,11 @@ nav#main-nav {
 	border-left: 1px solid #e7e7e7;
 }
 
+.btn {
+	max-width: 100%;
+	white-space: normal;
+}
+
 /* Page Header */
 .top-header {
 	font-family: Arial;
@@ -252,7 +257,7 @@ article hr {
 }
 .sidebar-subscribe-form .gform_wrapper .gform_body {
 	display: inline-block;
-	width: 79%;
+	width: 70%;
 }
 .sidebar-subscribe-form .gform_wrapper .gform_body .gfield {
 	width: 100%;
