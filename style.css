@@ -378,3 +378,10 @@ footer .nav > li > a:hover, footer .nav > li > a:focus {
 .testimonial-slide .author {
 	font-weight: 700;
 }
+
+
+
+/* Other Fixes */
+[class^="huge_it_slideshow_dots_"] {
+	margin-bottom: 10px !important;
+}
