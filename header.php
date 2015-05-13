@@ -81,7 +81,6 @@
 <body <?php body_class(); ?>>
 
     <?php tha_body_top(); ?>
-    <?php if ( function_exists('gtm4wp_render') ) gtm4wp_render(); ?>
     <?php tha_header_before(); ?>
     <?php do_action( 'before' ); ?>
 
