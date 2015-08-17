@@ -1,15 +1,25 @@
 <?php
 /**
- * The Default Template: Full Width Hero
+ * The main template file.
  *
  * @package pgb
  */
 
 get_header(); ?>
 
-	<?php get_template_part( 'posts', 'header' ); ?>
+	<div class="col-md-12">
 
-	<div id="content" class="main-content-inner col-sm-12 col-md-8">
+		<header class="page-header row">
+
+			<div class="page-color page-header-top col-md-12">
+				<?php blog_page_title( '<h1 class="page-title">', '</h1>' ); ?>
+			</div>
+
+		</header><!-- .entry-header -->
+
+	</div>
+
+	<div id="content" class="main-content-inner col-sm-12 col-md-8 col-lg-9" data-file="index.php">
 
 		<?php tha_content_top(); ?>
 
@@ -25,7 +35,7 @@ get_header(); ?>
 
 					<?php tha_entry_top(); ?>
 
-					<?php //get_template_part( 'posts', 'header' ); ?>
+					<?php get_template_part( 'posts', 'header' ); ?>
 
 					<div class="col-md-12">
 
@@ -37,7 +47,7 @@ get_header(); ?>
 
 					</div>
 
-					<?php //get_template_part( 'posts', 'footer' ); ?>
+					<?php get_template_part( 'posts', 'footer' ); ?>
 
 					<?php tha_entry_bottom(); ?>
 
@@ -45,7 +55,13 @@ get_header(); ?>
 
 				<?php tha_entry_after(); ?>
 
-			<?php endwhile; // end of the loop. ?>
+			<?php endwhile; ?>
+
+			<?php pgb_content_nav( 'nav-below' ); ?>
+
+		<?php else : ?>
+
+			<?php get_template_part( 'no-results', 'index' ); ?>
 
 		<?php endif; ?>
 
