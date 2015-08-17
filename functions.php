@@ -353,9 +353,11 @@ add_action( 'save_post', 'inspirations_save_meta_box_data_2' );
  *
  */
 function inspirations_page_color(){
-	global $wp_query;
-	$postid = $wp_query->post->ID;
-	return get_post_meta( $postid, '_inspirations_meta_page_color', true );
+	global $post, $wp_query;
+	//$postid = $wp_query->post->ID;
+	$postid = $post->ID;
+	$color = get_post_meta( $postid, '_inspirations_meta_page_color', true );
+	return ( $color ?: '#0d8092' );
 }
 
 /**
