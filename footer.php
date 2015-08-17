@@ -21,8 +21,8 @@ $options = pgb_get_options();
 			<?php 
 				$metabox_custom_page_footer 	  = get_post_meta(get_the_ID(), 'metabox_page_footer_option', true);
 				$metabox_custom_page_footer_count = get_post_meta(get_the_ID(), 'custom_footer_layout', true);
-				$showFooter 					  = $options['footer'];
-				$footer_column 					  = $options['footer_column'];
+				$showFooter 					  = ( isset($options['footer']) ? $options['footer'] : '' );
+				$footer_column 					  = ( isset($options['footer_column']) ? $options['footer_column'] : '' );
 
 				if ( is_page() ) {
 					if( $metabox_custom_page_footer == "default" ) {

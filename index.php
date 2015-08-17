@@ -35,7 +35,17 @@ get_header(); ?>
 
 					<?php tha_entry_top(); ?>
 
-					<?php get_template_part( 'posts', 'header' ); ?>
+					<div class="col-md-12">
+
+						<header class="page-header row">
+
+							<div class="page-header-top col-md-12">
+								<?php the_title( '<h1 class="page-title">', '</h1>' ); ?>
+							</div>
+
+						</header><!-- .entry-header -->
+
+					</div>
 
 					<div class="col-md-12">
 
