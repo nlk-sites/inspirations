@@ -126,7 +126,7 @@ $options = pgb_get_options();
 	<div class="container">
 		<div class="row">
 			<div class="site-footer-inner-top col-sm-12">
-				<?php echo pgb_get_mobile_logo(); ?>
+				<?php echo pgb_get_mobile_logo( 'pull-left' ); ?>
 				<?php // Main Menu
 				wp_nav_menu(
 					array(
