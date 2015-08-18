@@ -40,7 +40,7 @@ get_header(); ?>
 						<header class="page-header row">
 
 							<div class="page-header-top col-md-12">
-								<?php the_title( '<h1 class="page-title">', '</h1>' ); ?>
+								<?php the_title( '<h2 class="page-title"><a href="'.get_permalink().'" >', '</a></h2>' ); ?>
 							</div>
 
 						</header><!-- .entry-header -->
