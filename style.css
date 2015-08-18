@@ -102,6 +102,11 @@ nav#main-nav {
 	}
 }
 
+.mobilelogo.show {
+	display: inline-block !important;
+	float: left;
+}
+
 /* top menu */
 ul#main-menu {
 	margin-top: 16px;
