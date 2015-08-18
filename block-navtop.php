@@ -8,7 +8,7 @@
 $options = pgb_get_options();
 
 $topmenustyle           = '';
-$menuleftright          = 'navbar-left';
+$menuleftright          = 'navbar-right'; // inspirations defaults right
 
 // Static or Fixed navigation bar
 if ( !empty( $options['top_menu_position'] ) && 'fixed' == $options['top_menu_position']) {
@@ -18,8 +18,8 @@ if ( !empty( $options['top_menu_position'] ) && 'fixed' == $options['top_menu_po
 } 
 
 // Nav menu alignment
-if( !empty( $options['menu_align_top'] ) && 'right' == $options['menu_align_top'] ) {
-    $menuleftright = 'navbar-right';
+if( !empty( $options['menu_align_top'] ) && 'left' == $options['menu_align_top'] ) {
+    $menuleftright = 'navbar-left';
 }
 
 ?>

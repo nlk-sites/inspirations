@@ -12,7 +12,12 @@ get_header(); ?>
 		<header class="page-header row">
 
 			<div class="page-color page-header-top col-md-12">
-				<?php blog_page_title( '<h1 class="page-title">', '</h1>' ); ?>
+				<?php 
+				if ( function_exists('blog_page_title') ) { 
+					blog_page_title( '<h1 class="page-title">', '</h1>' ); 
+				} else { ?>
+					<h1 class="page-title">Blog</h1>
+				<?php  } ?>
 			</div>
 
 		</header><!-- .entry-header -->

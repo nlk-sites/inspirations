@@ -357,7 +357,7 @@ function inspirations_page_color(){
 	//$postid = $wp_query->post->ID;
 	$postid = $post->ID;
 	$color = get_post_meta( $postid, '_inspirations_meta_page_color', true );
-	return ( $color ?: '#0d8092' );
+	return ( $color ? $color : '#0d8092' );
 }
 
 /**
