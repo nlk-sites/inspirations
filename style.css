@@ -187,6 +187,11 @@ article hr {
 	border-top-width: 4px;
 }
 
+/* comments */
+div#comments {
+	padding: 0 40px 20px;
+}
+
 /* widgets */
 .front-page-widget {
 	/*background-size: contain !important;*/
