@@ -18,7 +18,7 @@ $options = pgb_get_options();
 <div class="footerwidgetarea">
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-sm-12">
 			<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('footer-widget') ) : ?>
 			<?php endif; ?>
 			</div>
